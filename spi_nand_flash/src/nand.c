@@ -171,7 +171,6 @@ static esp_err_t detect_chip(spi_nand_flash_device_t *dev)
         .miso_data = &manufacturer_id
     };
     spi_nand_execute_transaction(dev->config.device_handle, &t);
-    ESP_LOGI(TAG,"Manufacturer ID: %x", manufacturer_id);
     switch (manufacturer_id) {
     case SPI_NAND_FLASH_ALLIANCE_MI: // Alliance
         return spi_nand_alliance_init(dev);
@@ -182,7 +181,6 @@ static esp_err_t detect_chip(spi_nand_flash_device_t *dev)
     case SPI_NAND_FLASH_MICRON_MI: // Micron
         return spi_nand_micron_init(dev);
     default:
-	ESP_LOGE(TAG, "Could not find manufacturer ID, ID request returns: %x", manufacturer_id);
         return ESP_ERR_INVALID_RESPONSE;
     }
 }
